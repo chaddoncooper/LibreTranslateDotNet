@@ -4,10 +4,10 @@
     <Project Path="src/LibreTranslate.DotNet/LibreTranslate.DotNet.csproj" />
   </Folder>
   <Folder Name="/tests/" />
+  <Folder Name="/tests/LibreTranslate.DotNet.IntegrationTests/">
+    <Project Path="tests/LibreTranslate.DotNet.IntegrationTests/LibreTranslate.DotNet.IntegrationTests.csproj" />
+  </Folder>
   <Folder Name="/tests/LibreTranslate.DotNet.UnitTests/">
     <Project Path="tests/LibreTranslate.DotNet.UnitTests/LibreTranslate.DotNet.UnitTests.csproj" />
   </Folder>
-    <Folder Name="/tests/LibreTranslate.DotNet.Tests/">
-      <Project Path="tests/LibreTranslate.DotNet.IntegrationTests/LibreTranslate.DotNet.IntegrationTests.csproj" />
-    </Folder>
 </Solution>
