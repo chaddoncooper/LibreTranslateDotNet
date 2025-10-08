@@ -4,8 +4,21 @@ namespace LibreTranslate.DotNet.Extensions;
 
 public static class LibreTranslateDotNetExtensions
 {
-    public static IHttpClientBuilder AddLibreTranslateClient(this IServiceCollection services)
+    /// <summary>
+    /// Registers the LibreTranslateClient as a typed HttpClient.
+    /// </summary>
+    /// <param name="services">The IServiceCollection.</param>
+    /// <param name="apiUrl">The base URL for the LibreTranslate API.</param>
+    /// <returns>The IHttpClientBuilder to allow for further configuration.</returns>
+    public static IHttpClientBuilder AddLibreTranslateClient(
+        this IServiceCollection services,
+        string apiUrl)
     {
-        return services.AddHttpClient<ILibreTranslateClient, LibreTranslateClient>();
+        // The AddHttpClient method is the key.
+        return services.AddHttpClient<LibreTranslateClient>()
+            .ConfigureHttpClient(client =>
+            {
+                client.BaseAddress = new Uri(apiUrl.TrimEnd('/'));
+            });
     }
 }

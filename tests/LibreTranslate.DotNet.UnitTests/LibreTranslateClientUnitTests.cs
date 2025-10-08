@@ -1,6 +1,6 @@
 using System.Net;
 
-namespace LibreTranslate.DotNet.Tests;
+namespace LibreTranslate.DotNet.UnitTests;
 
 public class LibreTranslateClientUnitTests
 {
@@ -31,8 +31,11 @@ public class LibreTranslateClientUnitTests
             };
             return response;
         });
-        var httpClient = new HttpClient(handler);
-        var client = new LibreTranslateClient("http://fake", httpClient);
+        var httpClient = new HttpClient(handler)
+        {
+            BaseAddress = new Uri("http://fake")
+        };
+        var client = new LibreTranslateClient(httpClient);
         var result = await client.TranslateAsync("Hello", "en", "fr");
         Assert.NotNull(result.TranslatedText);
         Assert.Equal("Bonjour", result.TranslatedText[0]);
@@ -82,8 +85,11 @@ public class LibreTranslateClientUnitTests
             };
             return response;
         });
-        var httpClient = new HttpClient(handler);
-        var client = new LibreTranslateClient("http://fake", httpClient);
+        var httpClient = new HttpClient(handler)
+        {
+            BaseAddress = new Uri("http://fake")
+        };
+        var client = new LibreTranslateClient(httpClient);
         var result = await client.TranslateBatchAsync(["Hello", "world"], "en", "es");
         Assert.NotNull(result);
         Assert.Equal(2, result.TranslatedText.Length);
