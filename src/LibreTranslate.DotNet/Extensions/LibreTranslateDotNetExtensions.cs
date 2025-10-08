@@ -9,16 +9,18 @@ public static class LibreTranslateDotNetExtensions
     /// </summary>
     /// <param name="services">The IServiceCollection.</param>
     /// <param name="apiUrl">The base URL for the LibreTranslate API.</param>
+    /// <param name="apiKey">The API key for LibreTranslate.</param>
     /// <returns>The IHttpClientBuilder to allow for further configuration.</returns>
     public static IHttpClientBuilder AddLibreTranslateClient(
         this IServiceCollection services,
-        string apiUrl)
+        string apiUrl,
+        string apiKey = ""
+    )
     {
-        // The AddHttpClient method is the key.
-        return services.AddHttpClient<LibreTranslateClient>()
-            .ConfigureHttpClient(client =>
-            {
-                client.BaseAddress = new Uri(apiUrl.TrimEnd('/'));
-            });
+        return services.AddHttpClient<LibreTranslateClient>(client =>
+        {
+            client.BaseAddress = new Uri(apiUrl.TrimEnd('/'));
+        })
+        .AddTypedClient((httpClient, _) => new LibreTranslateClient(httpClient, apiKey));
     }
 }

@@ -2,39 +2,33 @@ using LibreTranslate.DotNet.Models;
 
 namespace LibreTranslate.DotNet;
 
-public partial class LibreTranslateClient(HttpClient httpClient) : ILibreTranslateClient
+public partial class LibreTranslateClient(HttpClient httpClient, string apiKey = "") : ILibreTranslateClient
 {
     public async Task<TranslateResponse> TranslateAsync(
         string text,
         string sourceLang,
         string targetLang,
-        string format = "text",
-        int? alternatives = null,
-        string apiKey = ""
+        int? alternatives = null
     )
     {
-        return await TranslateObjectAsync(text, sourceLang, targetLang, format, alternatives, apiKey);
+        return await TranslateObjectAsync(text, sourceLang, targetLang, alternatives);
     }
 
     public async Task<TranslateResponse> TranslateBatchAsync(
         List<string> texts,
         string sourceLang,
         string targetLang,
-        string format = "text",
-        int? alternatives = null,
-        string apiKey = ""
+        int? alternatives = null
     )
     {
-        return await TranslateObjectAsync(texts, sourceLang, targetLang, format, alternatives, apiKey);
+        return await TranslateObjectAsync(texts, sourceLang, targetLang, alternatives);
     }
 
     private async Task<TranslateResponse> TranslateObjectAsync(
         object q,
         string sourceLang,
         string targetLang,
-        string format = "text",
-        int? alternatives = null,
-        string apiKey = ""
+        int? alternatives = null
     )
     {
         var request = new TranslateRequest
@@ -42,7 +36,7 @@ public partial class LibreTranslateClient(HttpClient httpClient) : ILibreTransla
             Q = q,
             Source = sourceLang,
             Target = targetLang,
-            Format = format,
+            Format = "text",
             Alternatives = alternatives,
             ApiKey = apiKey
         };

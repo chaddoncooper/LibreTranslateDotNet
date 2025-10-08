@@ -19,14 +19,12 @@ public class LibreTranslateClientIntegrationTests
     public async Task TranslateAsync_CooperCasaApi_ReturnsExpectedTranslation()
     {
         using var httpClient = new HttpClient { BaseAddress = new Uri(_settings.ApiUrl) };
-        var client = new LibreTranslateClient(httpClient);
+        var client = new LibreTranslateClient(httpClient, _settings.ApiKey);
         var result = await client.TranslateAsync(
             text: "Bonjour",
             sourceLang: "auto",
             targetLang: "en",
-            format: "text",
-            alternatives: 3,
-            apiKey: _settings.ApiKey
+            alternatives: 3
         );
 
         Assert.NotNull(result.TranslatedText);
@@ -48,15 +46,13 @@ public class LibreTranslateClientIntegrationTests
     public async Task TranslateBatchAsync_CooperCasaApi_ReturnsExpectedBatchTranslation()
     {
         using var httpClient = new HttpClient { BaseAddress = new Uri(_settings.ApiUrl) };
-        var client = new LibreTranslateClient(httpClient);
+        var client = new LibreTranslateClient(httpClient, _settings.ApiKey);
         var inputTexts = new List<string> { "Hello", "world" };
         var result = await client.TranslateBatchAsync(
             texts: inputTexts,
             sourceLang: "en",
             targetLang: "es",
-            format: "text",
-            alternatives: 3,
-            apiKey: _settings.ApiKey
+            alternatives: 3
         );
 
         Assert.NotNull(result);

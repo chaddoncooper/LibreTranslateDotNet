@@ -35,7 +35,7 @@ public class LibreTranslateClientUnitTests
         {
             BaseAddress = new Uri("http://fake")
         };
-        var client = new LibreTranslateClient(httpClient);
+        var client = new LibreTranslateClient(httpClient, "");
         var result = await client.TranslateAsync("Hello", "en", "fr");
         Assert.NotNull(result.TranslatedText);
         Assert.Equal("Bonjour", result.TranslatedText[0]);
