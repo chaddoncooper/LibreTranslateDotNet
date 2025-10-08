@@ -4,7 +4,7 @@ namespace LibreTranslate.DotNet.Extensions;
 
 public static class LibreTranslateDotNetExtensions
 {
-    public static IHttpClientBuilder AddMyApiClient(this IServiceCollection services)
+    public static IHttpClientBuilder AddLibreTranslateClient(this IServiceCollection services)
     {
         return services.AddHttpClient<ILibreTranslateClient, LibreTranslateClient>();
     }
